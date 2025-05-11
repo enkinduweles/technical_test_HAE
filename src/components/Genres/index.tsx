@@ -1,19 +1,12 @@
 import { GENRES } from '../../const/genres';
-import { NavLink } from 'react-router';
-import { Icon } from '../Icon';
-import reactLogo from '/category.svg';
+import { Genre } from './Genre';
 
 export function Genres() {
   return (
     <nav className="flex flex-col gap-3">
+      <h2 className="text-xl font-bold mb-4 text-[#3B3E42]">Genres</h2>
       {GENRES.map((genre) => {
-        return (
-          <div className="flex gap-1 text-[#3B3E42]">
-            <Icon icon={reactLogo} altText="Category icon" />
-
-            <NavLink to={`/${genre.toLowerCase()}`}>{genre}</NavLink>
-          </div>
-        );
+        return <Genre key={genre} genre={genre} />;
       })}
     </nav>
   );
