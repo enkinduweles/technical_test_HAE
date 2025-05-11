@@ -1,3 +1,4 @@
+import { LAST_GENRE } from '../../const/localStorageKeys';
 import { MOVIES, type Movie } from '../../const/movies';
 
 class Movies {
@@ -6,17 +7,29 @@ class Movies {
   constructor() {
     this.movies = MOVIES;
   }
-  async getMoviesByGenre(genre: string | undefined) {
+  public async getMoviesByGenre(genre: string | undefined) {
     return new Promise<Movie[]>((resolve) => {
       setTimeout(() => {
         if (!genre) return [];
-        resolve(this.movies.filter((movie) => movie.genre === genre));
+        const moviesByGenre = this.movies.filter(
+          (movie) => movie.genre === genre
+        );
+        this.saveMovieByGenreToLocalStorage(moviesByGenre);
+        resolve(moviesByGenre);
       }, 2000);
     });
   }
 
-  getAllMovies() {
+  public getAllMovies() {
     return this.movies;
+  }
+
+  private saveMovieByGenreToLocalStorage(movies: typeof MOVIES) {
+    localStorage.setItem(LAST_GENRE, JSON.stringify(movies));
+  }
+
+  public cleanUpMoviesFromLocalStorage() {
+    localStorage.removeItem(LAST_GENRE);
   }
 }
 
