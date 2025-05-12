@@ -1,3 +1,3 @@
 export type GenreProps = {
-  genre: string;
+  genre?: string;
 };

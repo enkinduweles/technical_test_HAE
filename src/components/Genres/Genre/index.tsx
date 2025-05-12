@@ -1,25 +1,22 @@
-import { NavLink, type NavLinkRenderProps } from 'react-router';
+import { NavLink } from 'react-router';
 import { Icon } from '../../Icon';
 import categoryLogo from '/category.svg';
 import type { GenreProps } from './types';
-import { useDrawerContext } from '../../../context/Drawer';
+import { useGenre } from './hooks/useGenre';
 
 export function Genre({ genre }: GenreProps) {
-  const { onCloseDrawer } = useDrawerContext();
+  const { onActiveLink, onCleanUpAfterNavigate } = useGenre();
 
-  const onActiveLink = (props: NavLinkRenderProps) => {
-    return props.isActive ? 'text-[#8D788E] underline' : 'text-[#3B3E42]';
-  };
   return (
     <div className="flex gap-1 ">
       <Icon icon={categoryLogo} altText="Category icon" />
 
       <NavLink
-        to={`/${genre.toLowerCase()}`}
-        onClick={() => onCloseDrawer()}
+        to={genre ? `/${genre.toLowerCase()}` : '/'}
+        onClick={onCleanUpAfterNavigate}
         className={onActiveLink}
       >
-        {genre}
+        {genre ? genre : 'All'}
       </NavLink>
     </div>
   );
