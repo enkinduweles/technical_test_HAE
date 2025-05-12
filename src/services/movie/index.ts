@@ -16,7 +16,7 @@ class Movies {
         );
         this.saveMovieByGenreToLocalStorage(moviesByGenre);
         resolve(moviesByGenre);
-      }, 2000);
+      }, 1000);
     });
   }
 
@@ -24,7 +24,14 @@ class Movies {
     return this.movies;
   }
 
+  public async createMovie(movie: Movie) {
+    this.movies = [...this.movies, movie];
+
+    return await this.getMoviesByGenre(movie.genre);
+  }
+
   private saveMovieByGenreToLocalStorage(movies: typeof MOVIES) {
+    if (movies.length === 0) return;
     localStorage.setItem(LAST_GENRE, JSON.stringify(movies));
   }
 
