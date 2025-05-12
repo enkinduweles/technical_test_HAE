@@ -1,13 +1,19 @@
 import { type ReactNode } from 'react';
 import { Movie } from './Movie';
-import { FilterText } from '../Filter';
-import { useMovies } from './Movie/hooks/useMovies';
 import { Loading } from './Loading';
+import { Toolbar } from './Toolbar';
+import { NoMovies } from './NoMovies';
+import { Modal } from './Modal';
+import { useModalContext } from '../../context/ModalContext';
+import { useMovieContext } from '../../context/MovieContext';
 
 export function Movies() {
-  const { movies, isLoading } = useMovies();
+  const { movies, isLoading, onResetMovies } = useMovieContext();
+  const { isOpen } = useModalContext();
 
   let component: ReactNode = null;
+
+  if (movies?.length === 0) return <NoMovies />;
 
   component = movies.map(({ title, genre, id }) => {
     return (
@@ -21,14 +27,14 @@ export function Movies() {
   return isLoading ? (
     <Loading />
   ) : (
-    <div className=" p-4 flex flex-col grow gap-4 ">
-      <FilterText.Root>
-        <FilterText.Input />
-      </FilterText.Root>
-      <hr className="border-[#3B3E42]" />
-      <div className="grow grid sm:grid-cols-12 gap-4 auto-rows-min overflow-y-auto">
-        {component}
+    <>
+      <div className=" p-4 flex flex-col grow gap-4 ">
+        <Toolbar onResetMovies={onResetMovies} />
+        <div className="grow grid sm:grid-cols-12 gap-4 auto-rows-min overflow-y-auto">
+          {component}
+        </div>
       </div>
-    </div>
+      {isOpen && <Modal />}
+    </>
   );
 }

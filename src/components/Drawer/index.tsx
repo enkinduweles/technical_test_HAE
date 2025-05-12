@@ -1,4 +1,4 @@
-import { useDrawerContext } from '../../context/Drawer';
+import { useDrawerContext } from '../../context/DrawerContext';
 import { Genres } from '../Genres';
 
 export function Drawer() {
