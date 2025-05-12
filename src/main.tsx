@@ -7,12 +7,17 @@ import { CustomProviders } from './provider/CustomProviders.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CustomProviders>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/:genre?" element={<App />} />
-        </Routes>
-      </BrowserRouter>
-    </CustomProviders>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/:genre?"
+          element={
+            <CustomProviders>
+              <App />
+            </CustomProviders>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   </StrictMode>
 );
