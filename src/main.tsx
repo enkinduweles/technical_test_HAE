@@ -3,16 +3,16 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import './index.css';
 import App from './App.tsx';
-import { DrawerContextProvider } from './context/Drawer.tsx';
+import { CustomProviders } from './provider/CustomProviders.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <DrawerContextProvider>
+    <CustomProviders>
       <BrowserRouter>
         <Routes>
           <Route path="/:genre?" element={<App />} />
         </Routes>
       </BrowserRouter>
-    </DrawerContextProvider>
+    </CustomProviders>
   </StrictMode>
 );
