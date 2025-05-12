@@ -17,6 +17,7 @@ export function ModalContextProvider({ children }: ContextProviderProps) {
   }, []);
   const closeModalHandler = useCallback(
     (reason: 'action' | 'event', e?: MouseEvent<HTMLDivElement>) => {
+      // @ts-ignore
       if (reason === 'event' && e?.target.id === 'modal') setIsOpen(false);
 
       if (reason === 'action') setIsOpen(false);
